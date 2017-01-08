@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashishgoel.got.R;
+import com.ashishgoel.got.extras.AppConstants;
+import com.ashishgoel.got.objects.kingDetails.KingDetailsObject;
 
 
 /**
@@ -172,6 +174,12 @@ public class BaseActivity extends AppCompatActivity {
 
     public void openHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    public void openKingDetailActivity(KingDetailsObject object) {
+        Intent intent = new Intent(this, KingProfileActivity.class);
+        intent.putExtra(AppConstants.INTENT_DATA.INTENT_DATA_KING_OBJECT, object);
         startActivity(intent);
     }
 

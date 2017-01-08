@@ -4,6 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "24.0.1"
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.ashishgoel.got"
         minSdkVersion 19
         targetSdkVersion 25
@@ -27,10 +28,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
 
-    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:design:25.1.0'
     compile files('libs/volley.jar')
     compile 'com.google.code.gson:gson:2.4'
-    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
 
     // image with text and some background
@@ -40,5 +41,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
-    compile "com.wefika:flowlayout:0.4.1"
+    compile 'com.wefika:flowlayout:0.4.1'
+
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 }

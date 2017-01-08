@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ashishgoel.got.R;
+import com.ashishgoel.got.activity.BaseActivity;
 import com.ashishgoel.got.extras.AppConstants;
 import com.ashishgoel.got.objects.kingDetails.KingDetailsObject;
 import com.ashishgoel.got.sqlite.kings.KingsSqliteHelper;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
  * Created by Ashish on 08/01/17.
  */
 
-public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     List<KingDetailsObject> mdata;
     Context context;
@@ -80,6 +81,16 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.king_container:
+                KingDetailsObject object = (KingDetailsObject) view.getTag();
+                ((BaseActivity) context).openKingDetailActivity(object);
+                break;
+        }
+    }
+
     private static class LoadingHolder extends RecyclerView.ViewHolder {
 
         public LoadingHolder(View itemView) {
@@ -114,6 +125,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ImageView defenseImage;
         @BindView(R.id.king_ranking)
         TextView ranking;
+        @BindView(R.id.king_container)
+        LinearLayout container;
 
         public KingHolder(View itemView) {
             super(itemView);
@@ -148,10 +161,10 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ImageUtils.loadKingImage(holder.imageView, object, context, imageRadius);
 
             String status = null;
-            if (object.getNumberOfAttackWins() != 0 && object.getNumberOfBattlesLost() == 0) {
-                status = "Won " + object.getNumberOfAttackWins() + " battles, haven't lost any battle.";
-            } else if (object.getNumberOfAttackWins() != 0) {
-                status = "Won " + object.getNumberOfAttackWins() + " battles.";
+            if (object.getTotalNumberOfWins() != 0 && object.getNumberOfBattlesLost() == 0) {
+                status = "Won " + object.getTotalNumberOfWins() + " battles, haven't lost any battle.";
+            } else if (object.getTotalNumberOfWins() != 0) {
+                status = "Won " + object.getTotalNumberOfWins() + " battles.";
             } else if (object.getNumberOfBattlesLost() == 1) {
                 status = "Lost " + object.getNumberOfBattlesLost() + " battle";
             } else if (object.getNumberOfBattlesLost() > 1) {
@@ -183,6 +196,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     holder.defenseText.setText(context.getResources().getString(R.string.defense_text));
                 }
             }
+
+            holder.container.setTag(object);
+            holder.container.setOnClickListener(this);
         } else if (getItemViewType(position) == AppConstants.TYPE_RECYCLER_VIEW_HEADER) {
             HeaderHolder holder = (HeaderHolder) holderCom;
             if (mdata.size() == 1) {

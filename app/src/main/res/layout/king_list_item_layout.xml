@@ -5,9 +5,10 @@
     android:layout_marginBottom="@dimen/z_margin_small"
     android:background="@drawable/shadow_king_list_item">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/king_container"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:orientation="vertical"

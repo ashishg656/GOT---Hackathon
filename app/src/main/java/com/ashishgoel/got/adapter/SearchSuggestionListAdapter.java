@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ashishgoel.got.R;
+import com.ashishgoel.got.activity.BaseActivity;
 import com.ashishgoel.got.objects.kingDetails.KingDetailsObject;
 import com.ashishgoel.got.utils.ImageUtils;
 
@@ -21,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by Ashish on 08/01/17.
  */
 
-public class SearchSuggestionListAdapter extends RecyclerView.Adapter<SearchSuggestionListAdapter.SearchSuggestionHolder> {
+public class SearchSuggestionListAdapter extends RecyclerView.Adapter<SearchSuggestionListAdapter.SearchSuggestionHolder> implements View.OnClickListener {
 
     Context context;
     List<KingDetailsObject> mData;
@@ -50,11 +52,24 @@ public class SearchSuggestionListAdapter extends RecyclerView.Adapter<SearchSugg
 
         holder.name.setText(object.getName());
         ImageUtils.loadKingImage(holder.imageView, object, context, imageRadius);
+
+        holder.container.setTag(object);
+        holder.container.setOnClickListener(this);
     }
 
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.container_search_suggestion:
+                KingDetailsObject obj = (KingDetailsObject) view.getTag();
+                ((BaseActivity) context).openKingDetailActivity(obj);
+                break;
+        }
     }
 
     static class SearchSuggestionHolder extends RecyclerView.ViewHolder {
@@ -63,6 +78,8 @@ public class SearchSuggestionListAdapter extends RecyclerView.Adapter<SearchSugg
         ImageView imageView;
         @BindView(R.id.king_name)
         TextView name;
+        @BindView(R.id.container_search_suggestion)
+        LinearLayout container;
 
         public SearchSuggestionHolder(View itemView) {
             super(itemView);

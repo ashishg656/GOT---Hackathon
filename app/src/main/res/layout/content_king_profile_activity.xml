@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/z_grey_shade_2"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ashishgoel.got.activity.KingProfileActivity"
+    tools:showIn="@layout/king_profile_activity_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/z_margin_large"
+        android:paddingLeft="@dimen/z_margin_small"
+        android:paddingRight="@dimen/z_margin_small"
+        android:paddingTop="@dimen/z_margin_small">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_cart_bg_shadow">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/z_margin_large">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/king_image"
+                    android:layout_width="@dimen/king_user_image_radius"
+                    android:layout_height="@dimen/king_user_image_radius" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/z_margin_small"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/king_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="Name"
+                        android:textColor="@color/z_text_color_medium_dark"
+                        android:textSize="@dimen/z_font_small"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/king_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/z_margin_mini"
+                        android:text="Status"
+                        android:textColor="@color/z_text_color_light"
+                        android:textSize="@dimen/z_font_mini"
+                        android:textStyle="normal" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pie_chart_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/z_margin_6dp"
+            android:background="@drawable/ic_cart_bg_shadow"
+            android:visibility="gone">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pie_chart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/z_margin_6dp"
+            android:background="@drawable/ic_cart_bg_shadow"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/z_margin_large">
+
+                <ImageView
+                    android:layout_width="@dimen/z_margin_xlarge"
+                    android:layout_height="@dimen/z_margin_xlarge"
+                    app:srcCompat="@drawable/g_star" />
+
+                <TextView
+                    android:id="@+id/king_battle_strength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/z_margin_large"
+                    android:text="Strength : "
+                    android:textColor="@color/z_text_color_medium_dark"
+                    android:textSize="@dimen/z_font_small"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/z_margin_large">
+
+                <ImageView
+                    android:layout_width="@dimen/z_margin_xlarge"
+                    android:layout_height="@dimen/z_margin_xlarge"
+                    app:srcCompat="@drawable/image_win" />
+
+                <TextView
+                    android:id="@+id/king_battleswon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/z_margin_large"
+                    android:text="Battles Won : 0"
+                    android:textColor="@color/z_text_color_medium_dark"
+                    android:textSize="@dimen/z_font_small"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/z_margin_large">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="@dimen/z_margin_xlarge"
+                    android:layout_height="@dimen/z_margin_xlarge"
+                    app:srcCompat="@drawable/image_lost" />
+
+                <TextView
+                    android:id="@+id/king_battleslost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/z_margin_large"
+                    android:text="Battles Lost : 0"
+                    android:textColor="@color/z_text_color_medium_dark"
+                    android:textSize="@dimen/z_font_small"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/z_margin_large">
+
+                <ImageView
+                    android:layout_width="@dimen/z_margin_xlarge"
+                    android:layout_height="@dimen/z_margin_xlarge"
+                    app:srcCompat="@drawable/image_battle_draw" />
+
+                <TextView
+                    android:id="@+id/king_battlesdraw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/z_margin_large"
+                    android:text="Battles Drawn : 0"
+                    android:textColor="@color/z_text_color_medium_dark"
+                    android:textSize="@dimen/z_font_small"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/z_margin_large">
+
+                <ImageView
+                    android:id="@+id/strenthtypeimage"
+                    android:layout_width="@dimen/z_margin_xlarge"
+                    android:layout_height="@dimen/z_margin_xlarge"
+                    app:srcCompat="@drawable/image_shield" />
+
+                <TextView
+                    android:id="@+id/strenthtype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/z_margin_large"
+                    android:text="Strength in battle type : "
+                    android:textColor="@color/z_text_color_medium_dark"
+                    android:textSize="@dimen/z_font_small"
+                    android:textStyle="normal" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

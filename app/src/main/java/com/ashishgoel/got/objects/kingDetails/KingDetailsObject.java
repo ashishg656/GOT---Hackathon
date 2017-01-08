@@ -27,6 +27,10 @@ public class KingDetailsObject implements Comparable<KingDetailsObject>, Parcela
         }
     }
 
+    public int getTotalNumberOfWins() {
+        return numberOfAttackWins + numberOfDefenseWins;
+    }
+
     protected KingDetailsObject(Parcel in) {
         numberOfAttackWins = in.readInt();
         numberOfDefenseWins = in.readInt();
@@ -35,6 +39,7 @@ public class KingDetailsObject implements Comparable<KingDetailsObject>, Parcela
         imageUrl = in.readString();
         numberOfDraws = in.readInt();
         defaultRating = in.readFloat();
+        currentRating = (Float) in.readValue(null);
     }
 
     @Override
@@ -46,6 +51,7 @@ public class KingDetailsObject implements Comparable<KingDetailsObject>, Parcela
         dest.writeString(imageUrl);
         dest.writeInt(numberOfDraws);
         dest.writeFloat(defaultRating);
+        dest.writeValue(currentRating);
     }
 
     @Override

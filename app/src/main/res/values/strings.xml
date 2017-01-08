@@ -13,4 +13,7 @@
 
     <string name="search_activity_no_data_heading">WHOOPS.. No results</string>
     <string name="search_activity_no_data_desc">No results were found with the selected query. Please modify your search and try again.</string>
+    <string name="title_activity_king_profile_activity">Details</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
