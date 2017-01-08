@@ -252,11 +252,31 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
 
                         attacker.setNumberOfAttackWins(attacker.getNumberOfAttackWins() + 1);
                         defender.setNumberOfBattlesLost(defender.getNumberOfBattlesLost() + 1);
+
+                        // calculating strength for battle type
+                        HashMap<String, Integer> hashMapStrength = attacker.getStrengthForBattleType();
+                        if (hashMapStrength.containsKey(battle.getBattle_type())) {
+                            Integer value = hashMapStrength.get(battle.getBattle_type());
+                            hashMapStrength.put(battle.getBattle_type(), value + 1);
+                        } else {
+                            hashMapStrength.put(battle.getBattle_type(), 1);
+                        }
+                        attacker.setStrengthForBattleType(hashMapStrength);
                     } else if (AndroidUtils.compareString(battle.getAttacker_outcome(), AppConstants.OUTCOME_LOSS)) {
                         scoreDefender = 1;
 
                         defender.setNumberOfDefenseWins(defender.getNumberOfDefenseWins() + 1);
                         attacker.setNumberOfBattlesLost(attacker.getNumberOfBattlesLost() + 1);
+
+                        // calculating strength for battle type
+                        HashMap<String, Integer> hashMapStrength = defender.getStrengthForBattleType();
+                        if (hashMapStrength.containsKey(battle.getBattle_type())) {
+                            Integer value = hashMapStrength.get(battle.getBattle_type());
+                            hashMapStrength.put(battle.getBattle_type(), value + 1);
+                        } else {
+                            hashMapStrength.put(battle.getBattle_type(), 1);
+                        }
+                        defender.setStrengthForBattleType(hashMapStrength);
                     } else if (AndroidUtils.compareString(battle.getAttacker_outcome(), AppConstants.OUTCOME_DRAW)) {
                         scoreAttacker = 0.5f;
                         scoreDefender = 0.5f;

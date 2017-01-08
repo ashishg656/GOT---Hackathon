@@ -102,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/z_margin_large"
-                    android:text="Strength : "
+                    android:text="Ranking : "
                     android:textColor="@color/z_text_color_medium_dark"
                     android:textSize="@dimen/z_font_small"
                     android:textStyle="normal" />
@@ -192,7 +192,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/z_margin_large"
-                    android:text="Strength in battle type : "
+                    android:text="Strength : "
+                    android:textColor="@color/z_text_color_medium_dark"
+                    android:textSize="@dimen/z_font_small"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/z_margin_large">
+
+                <ImageView
+                    android:layout_width="@dimen/z_margin_xlarge"
+                    android:layout_height="@dimen/z_margin_xlarge"
+                    app:srcCompat="@drawable/image_shield" />
+
+                <TextView
+                    android:id="@+id/strenthtype_battletype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/z_margin_large"
+                    android:text="Strength in battle type : NA"
                     android:textColor="@color/z_text_color_medium_dark"
                     android:textSize="@dimen/z_font_small"
                     android:textStyle="normal" />

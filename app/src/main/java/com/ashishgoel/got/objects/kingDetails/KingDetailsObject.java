@@ -3,6 +3,8 @@ package com.ashishgoel.got.objects.kingDetails;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.HashMap;
+
 /**
  * Created by Ashish on 08/01/17.
  */
@@ -15,6 +17,7 @@ public class KingDetailsObject implements Comparable<KingDetailsObject>, Parcela
     String name;
     String imageUrl;
     int numberOfDraws;
+    HashMap<String, Integer> strengthForBattleType;
 
     Float currentRating;
 
@@ -52,6 +55,17 @@ public class KingDetailsObject implements Comparable<KingDetailsObject>, Parcela
         dest.writeInt(numberOfDraws);
         dest.writeFloat(defaultRating);
         dest.writeValue(currentRating);
+    }
+
+    public HashMap<String, Integer> getStrengthForBattleType() {
+        if (strengthForBattleType == null) {
+            strengthForBattleType = new HashMap<>();
+        }
+        return strengthForBattleType;
+    }
+
+    public void setStrengthForBattleType(HashMap<String, Integer> strengthForBattleType) {
+        this.strengthForBattleType = strengthForBattleType;
     }
 
     @Override

@@ -60,9 +60,11 @@ public class KingProfileActivity extends BaseActivity implements View.OnClickLis
     @BindView(R.id.king_battlesdraw)
     TextView battleDraw;
     @BindView(R.id.strenthtype)
-    TextView strengthInBattleType;
+    TextView strengthType;
+    @BindView(R.id.strenthtype_battletype)
+    TextView strenthInBattleType;
     @BindView(R.id.strenthtypeimage)
-    ImageView strengthInBattleTypeImage;
+    ImageView strengthTypeImage;
     @BindView(R.id.pie_chart_container)
     LinearLayout pieChartContainer;
 
@@ -115,19 +117,32 @@ public class KingProfileActivity extends BaseActivity implements View.OnClickLis
         kingStatus.setText(status);
 
         if (mData.getCurrentRating() != null) {
-            strength.setText("Strength : " + mData.getCurrentRating().intValue());
+            strength.setText("Rating : " + mData.getCurrentRating().intValue());
         } else {
-            strength.setText("Strength : 400");
+            strength.setText("Rating : 400");
         }
 
-        if (mData.getNumberOfAttackWins() == 0 && mData.getNumberOfDefenseWins() == 0) {
-        } else {
-            if (mData.getNumberOfAttackWins() >= mData.getNumberOfDefenseWins()) {
-                UIUtils.loadImage(strengthInBattleTypeImage, R.drawable.g_sword);
-                strengthInBattleType.setText("Strength in battle type : Attack");
-            } else if (mData.getNumberOfAttackWins() < mData.getNumberOfDefenseWins()) {
-                UIUtils.loadImage(strengthInBattleTypeImage, R.drawable.g_shield);
-                strengthInBattleType.setText("Strength in battle type : Defense");
+        if (mData.getNumberOfAttackWins() >= mData.getNumberOfDefenseWins()) {
+            UIUtils.loadImage(strengthTypeImage, R.drawable.g_sword);
+            strengthType.setText("Strength : Attack");
+        } else if (mData.getNumberOfAttackWins() < mData.getNumberOfDefenseWins()) {
+            UIUtils.loadImage(strengthTypeImage, R.drawable.g_shield);
+            strengthType.setText("Strength : Defense");
+        }
+
+        if (mData.getStrengthForBattleType() != null) {
+            int maxValue = -1;
+            String maxKey = null;
+
+            for (String key : mData.getStrengthForBattleType().keySet()) {
+                Integer value = mData.getStrengthForBattleType().get(key);
+                if (value != null && value > maxValue) {
+                    maxKey = key;
+                }
+            }
+
+            if (maxKey != null) {
+                strenthInBattleType.setText("Strength in battle type : " + maxKey.toUpperCase());
             }
         }
 
