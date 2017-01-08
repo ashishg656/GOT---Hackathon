@@ -4,6 +4,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.volley.VolleyError;
 import com.ashishgoel.got.R;
@@ -40,6 +44,9 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
     @BindView(R.id.home_recycler_view)
     RecyclerView recyclerView;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     LinearLayoutManager layoutManager;
     HomeListAdapter adapter;
 
@@ -49,9 +56,11 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
         setContentView(R.layout.home_activity_layout);
         ButterKnife.bind(this);
 
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         setProgressAndErrorLayoutVariables();
 
@@ -206,5 +215,24 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
 
             return null;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the options menu from XML
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_search:
+                openSearchActivity();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,10 +1,13 @@
 package com.ashishgoel.got.objects.kingDetails;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Ashish on 08/01/17.
  */
 
-public class KingDetailsObject implements Comparable<KingDetailsObject> {
+public class KingDetailsObject implements Comparable<KingDetailsObject>, Parcelable {
 
     int numberOfAttackWins;
     int numberOfDefenseWins;
@@ -23,6 +26,44 @@ public class KingDetailsObject implements Comparable<KingDetailsObject> {
             currentRating = defaultRating;
         }
     }
+
+    protected KingDetailsObject(Parcel in) {
+        numberOfAttackWins = in.readInt();
+        numberOfDefenseWins = in.readInt();
+        numberOfBattlesLost = in.readInt();
+        name = in.readString();
+        imageUrl = in.readString();
+        numberOfDraws = in.readInt();
+        defaultRating = in.readFloat();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(numberOfAttackWins);
+        dest.writeInt(numberOfDefenseWins);
+        dest.writeInt(numberOfBattlesLost);
+        dest.writeString(name);
+        dest.writeString(imageUrl);
+        dest.writeInt(numberOfDraws);
+        dest.writeFloat(defaultRating);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<KingDetailsObject> CREATOR = new Creator<KingDetailsObject>() {
+        @Override
+        public KingDetailsObject createFromParcel(Parcel in) {
+            return new KingDetailsObject(in);
+        }
+
+        @Override
+        public KingDetailsObject[] newArray(int size) {
+            return new KingDetailsObject[size];
+        }
+    };
 
     public int getNumberOfBattlesLost() {
         return numberOfBattlesLost;
