@@ -118,7 +118,13 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
     public void onCalculationCompleted(HashMap<String, KingDetailsObject> result, Set<String> battleTypesData) {
         hideProgressLayout();
         hideErrorLayout();
-        adapter = new HomeListAdapter(result, this, false);
+
+        boolean setSqlData = true;
+        if (filterBattleTypes != null) {
+            setSqlData = false;
+        }
+
+        adapter = new HomeListAdapter(result, this, false, setSqlData);
         recyclerView.setAdapter(adapter);
         recyclerView.setVisibility(View.VISIBLE);
 

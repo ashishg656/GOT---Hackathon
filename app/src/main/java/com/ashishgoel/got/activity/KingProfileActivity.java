@@ -3,7 +3,6 @@ package com.ashishgoel.got.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +12,8 @@ import android.widget.TextView;
 import com.ashishgoel.got.R;
 import com.ashishgoel.got.extras.AppConstants;
 import com.ashishgoel.got.objects.kingDetails.KingDetailsObject;
+import com.ashishgoel.got.sqlite.kings.KingsSqliteHelper;
+import com.ashishgoel.got.utils.AndroidUtils;
 import com.ashishgoel.got.utils.ImageUtils;
 import com.ashishgoel.got.utils.UIUtils;
 import com.github.mikephil.charting.animation.Easing;
@@ -25,11 +26,12 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class KingProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class KingProfileActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.fab)
     FloatingActionButton fab;
@@ -76,6 +78,16 @@ public class KingProfileActivity extends AppCompatActivity implements View.OnCli
         fab.setOnClickListener(this);
 
         mData = getIntent().getParcelableExtra(AppConstants.INTENT_DATA.INTENT_DATA_KING_OBJECT);
+        KingsSqliteHelper helper = new KingsSqliteHelper(this);
+        List<KingDetailsObject> results = helper.getAllKings();
+        if (results != null) {
+            for (KingDetailsObject obj : results) {
+                if (AndroidUtils.compareString(obj.getName(), mData.getName())) {
+                    mData = obj;
+                    break;
+                }
+            }
+        }
 
         setData();
     }

@@ -39,7 +39,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     boolean isMoreAllowed;
     int imageRadius;
 
-    public HomeListAdapter(HashMap<String, KingDetailsObject> hashMap, Context context, boolean isMoreAllowed) {
+    public HomeListAdapter(HashMap<String, KingDetailsObject> hashMap, Context context, boolean isMoreAllowed, boolean setSqlData) {
         this.context = context;
         this.isMoreAllowed = isMoreAllowed;
         this.mdata = new ArrayList<>();
@@ -52,7 +52,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         Collections.sort(mdata, Collections.<KingDetailsObject>reverseOrder());
 
-        new KingsSqliteHelper(context).setData(mdata);
+        if (setSqlData) {
+            new KingsSqliteHelper(context).setData(mdata);
+        }
 
         imageRadius = context.getResources().getDimensionPixelSize(R.dimen.king_user_image_radius);
 
