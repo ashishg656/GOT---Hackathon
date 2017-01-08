@@ -11,4 +11,8 @@ public interface AppConstants {
     public static final String OUTCOME_WIN = "win";
     public static final String OUTCOME_LOSS = "loss";
     public static final String OUTCOME_DRAW = "draw";
+
+    // database
+    public static final int DATABASE_VERSION = 5;
+    public static final String DATABASE_NAME = "Search.db";
 }

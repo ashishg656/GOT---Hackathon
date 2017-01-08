@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/z_margin_6dp"
+    android:layout_marginRight="@dimen/z_margin_small"
+    android:background="@drawable/search_tag_text_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_tag_recent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:padding="@dimen/z_margin_small"
+        android:text="Sample"
+        android:textColor="@color/z_text_color_light"
+        android:textSize="@dimen/z_font_supermini"
+        android:textStyle="normal" />
+</FrameLayout>

@@ -66,6 +66,15 @@ public class VolleyUtils {
         }
     }
 
+    public static String getStringFromObject(Object obj) {
+        try {
+            return new Gson().toJson(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /*
                 Type listType = new TypeToken<ArrayList<Influencer>>() {
                 }.getType();

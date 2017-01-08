@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.ashishgoel.got.R;
 import com.ashishgoel.got.extras.AppConstants;
 import com.ashishgoel.got.objects.kingDetails.KingDetailsObject;
+import com.ashishgoel.got.sqlite.kings.KingsSqliteHelper;
 import com.ashishgoel.got.utils.AndroidUtils;
 import com.ashishgoel.got.utils.ImageUtils;
 import com.ashishgoel.got.utils.UIUtils;
@@ -50,6 +51,19 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         Collections.sort(mdata, Collections.<KingDetailsObject>reverseOrder());
 
+        new KingsSqliteHelper(context).setData(mdata);
+
+        imageRadius = context.getResources().getDimensionPixelSize(R.dimen.king_user_image_radius);
+
+        layoutInflater = LayoutInflater.from(context);
+    }
+
+    public HomeListAdapter(List<KingDetailsObject> mdata, Context context, boolean isMoreAllowed) {
+        this.context = context;
+        this.isMoreAllowed = isMoreAllowed;
+        this.mdata = mdata;
+
+        Collections.sort(mdata, Collections.<KingDetailsObject>reverseOrder());
         imageRadius = context.getResources().getDimensionPixelSize(R.dimen.king_user_image_radius);
 
         layoutInflater = LayoutInflater.from(context);
@@ -131,7 +145,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             KingDetailsObject object = mdata.get(position);
 
             holder.name.setText(object.getName());
-            ImageUtils.loadProfilePicFromUrl(object.getName(), holder.imageView, context, imageRadius);
+            ImageUtils.loadKingImage(holder.imageView, object, context, imageRadius);
 
             String status = null;
             if (object.getNumberOfAttackWins() != 0 && object.getNumberOfBattlesLost() == 0) {

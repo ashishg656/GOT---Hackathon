@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.ashishgoel.got.objects.kingDetails.KingDetailsObject;
 
 import java.io.ByteArrayOutputStream;
 
@@ -38,6 +39,10 @@ public class ImageUtils {
         } catch (Throwable e) {
             e.printStackTrace();
         }
+    }
+
+    public static void loadKingImage(ImageView imageView, KingDetailsObject obj, Context context, int radius) {
+        loadProfilePicFromUrl(obj.getName(), imageView, context, radius);
     }
 
     public static Bitmap getResizedBitmap(Bitmap image, int maxSize) {

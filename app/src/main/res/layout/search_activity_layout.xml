@@ -5,4 +5,96 @@
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_layout" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:requiresFadingEdge="none"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/recent_search_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="@dimen/z_margin_large"
+                            android:text="Recent Searches"
+                            android:textColor="@color/z_text_color_light" />
+
+                        <TextView
+                            android:id="@+id/clearsearchresent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="@dimen/z_margin_large"
+                            android:text="CLEAR ALL"
+                            android:textColor="@color/red_color_primary"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <com.wefika.flowlayout.FlowLayout
+                        android:id="@+id/recent_search_flow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/z_margin_large"
+                        android:layout_marginRight="@dimen/z_margin_mini" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/search_suggestion_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/z_margin_large"
+                        android:text="Suggested Kings"
+                        android:textColor="@color/z_text_color_light" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/search_suggestion_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingLeft="@dimen/z_margin_mini"
+                        android:paddingRight="@dimen/z_margin_mini" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/search_results_recycler_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/z_grey_shade_2"
+            android:visibility="gone">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/search_results_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+    </FrameLayout>
 </LinearLayout>
