@@ -8,12 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.android.volley.VolleyError;
 import com.ashishgoel.got.R;
 import com.ashishgoel.got.adapter.HomeListAdapter;
 import com.ashishgoel.got.extras.AppConstants;
 import com.ashishgoel.got.extras.RequestTags;
+import com.ashishgoel.got.fragment.FilterFragment;
 import com.ashishgoel.got.interfaces.RankCalculatorListenerInterface;
 import com.ashishgoel.got.objects.homeApi.HomeResponseObject;
 import com.ashishgoel.got.objects.kingDetails.KingDetailsObject;
@@ -28,7 +30,9 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +41,7 @@ import butterknife.ButterKnife;
  * Created by Ashish on 07/01/17.
  */
 
-public class HomeActivity extends BaseActivity implements AppRequestListener, RankCalculatorListenerInterface {
+public class HomeActivity extends BaseActivity implements AppRequestListener, RankCalculatorListenerInterface, FilterFragment.FilterApplyInterface {
 
     private List<HomeResponseObject> mData;
 
@@ -49,6 +53,10 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
 
     LinearLayoutManager layoutManager;
     HomeListAdapter adapter;
+
+    ArrayList<String> allBattleTypes;
+
+    ArrayList<String> filterBattleTypes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,36 +103,55 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
             }.getType();
             mData = new Gson().fromJson(response, listType);
 
-            new RatingCalculator(mData, this).execute();
+            new RatingCalculator(mData, this, null).execute();
         }
     }
 
     @Override
     public void onCalculationStared() {
-
+        showProgressLayout();
+        hideErrorLayout();
+        recyclerView.setVisibility(View.GONE);
     }
 
     @Override
-    public void onCalculationCompleted(HashMap<String, KingDetailsObject> result) {
+    public void onCalculationCompleted(HashMap<String, KingDetailsObject> result, Set<String> battleTypesData) {
         hideProgressLayout();
         hideErrorLayout();
         adapter = new HomeListAdapter(result, this, false);
         recyclerView.setAdapter(adapter);
+        recyclerView.setVisibility(View.VISIBLE);
+
+        if (this.allBattleTypes == null && battleTypesData != null) {
+            this.allBattleTypes = new ArrayList<>();
+            this.allBattleTypes.addAll(battleTypesData);
+        }
+    }
+
+    @Override
+    public void onFilterApplied(ArrayList<String> data) {
+        this.filterBattleTypes = data;
+
+        new RatingCalculator(mData, this, filterBattleTypes).execute();
     }
 
     static class RatingCalculator extends AsyncTask<String, Integer, String> {
 
         List<HomeResponseObject> mData;
+        List<String> filters;
         HashMap<String, KingDetailsObject> hashMap;
         RankCalculatorListenerInterface listenerInterface;
+        Set<String> battleTypes;
 
         public static final int N_FACTOR = 400;
         public static final int K_FACTOR = 32;
 
-        public RatingCalculator(List<HomeResponseObject> mData, RankCalculatorListenerInterface listenerInterface) {
+        public RatingCalculator(List<HomeResponseObject> mData, RankCalculatorListenerInterface listenerInterface, List<String> filters) {
             this.mData = mData;
+            this.filters = filters;
             this.listenerInterface = listenerInterface;
             hashMap = new HashMap<>();
+            battleTypes = new HashSet<>();
         }
 
         @Override
@@ -139,7 +166,7 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             if (listenerInterface != null) {
-                listenerInterface.onCalculationCompleted(hashMap);
+                listenerInterface.onCalculationCompleted(hashMap, battleTypes);
             }
         }
 
@@ -155,6 +182,17 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
 
             for (int i = 0; i < mData.size(); i++) {
                 HomeResponseObject battle = mData.get(i);
+
+                if (filters != null && filters.size() > 0) {
+                    if (!filters.contains(battle.getBattle_type())) {
+                        continue;
+                    }
+                }
+
+                if (battle != null) {
+                    battleTypes.add(battle.getBattle_type());
+                }
+
                 if (battle != null
                         && !AndroidUtils.isEmpty(battle.getAttacker_king())
                         && !AndroidUtils.isEmpty(battle.getDefender_king())) {
@@ -232,7 +270,26 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
             case R.id.menu_search:
                 openSearchActivity();
                 break;
+            case R.id.menu_filter:
+                openFilterFragment();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openFilterFragment() {
+        try {
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList(AppConstants.FRAGMENT_ARGUMENTS.ARGUMENT_ALL_FILTERS, allBattleTypes);
+            bundle.putStringArrayList(AppConstants.FRAGMENT_ARGUMENTS.ARGUMENT_SELECTED_FILTERS, filterBattleTypes);
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, FilterFragment.newInstance(bundle))
+                    .addToBackStack("filter")
+                    .commitAllowingStateLoss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

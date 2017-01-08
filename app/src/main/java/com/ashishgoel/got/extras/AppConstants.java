@@ -15,4 +15,13 @@ public interface AppConstants {
     // database
     public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "Search.db";
+
+    public interface INTENT_DATA {
+
+    }
+
+    public interface FRAGMENT_ARGUMENTS {
+        public static final String ARGUMENT_ALL_FILTERS = "ARGUMENT_ALL_FILTERS";
+        public static final String ARGUMENT_SELECTED_FILTERS = "ARGUMENT_SELECTED_FILTERS";
+    }
 }
