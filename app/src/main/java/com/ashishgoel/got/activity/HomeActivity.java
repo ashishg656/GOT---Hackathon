@@ -323,6 +323,7 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
 
             getSupportFragmentManager()
                     .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right, R.anim.no_anim, R.anim.no_anim, R.anim.exit_to_bottom)
                     .replace(R.id.fragment_container, FilterFragment.newInstance(bundle))
                     .addToBackStack("filter")
                     .commitAllowingStateLoss();
