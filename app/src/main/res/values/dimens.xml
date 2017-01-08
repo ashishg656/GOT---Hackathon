@@ -1,0 +1,32 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+
+    <!--margins-->
+    <dimen name="z_margin_supermini">2dp</dimen>
+    <dimen name="z_margin_mini">4dp</dimen>
+    <dimen name="z_margin_6dp">6dp</dimen>
+    <dimen name="z_margin_small">8dp</dimen>
+    <dimen name="z_margin_medium">12dp</dimen>
+    <dimen name="z_margin_large">16dp</dimen>
+    <dimen name="z_margin_xlarge">25dp</dimen>
+    <dimen name="z_margin_xxlarge">30dp</dimen>
+
+    <!-- fonts -->
+    <dimen name="z_font_supermini">12sp</dimen>
+    <dimen name="z_font_mini">14sp</dimen>
+    <dimen name="z_font_small">16sp</dimen>
+    <dimen name="z_font_medium">18sp</dimen>
+
+    <dimen name="material_button_height">48dp</dimen>
+
+    <!-- navigation drawer -->
+    <dimen name="z_drawer_header_top_padding">56dp</dimen>
+    <dimen name="z_drawer_profile_image_height">64dp</dimen>
+
+    <!-- home screen -->
+    <dimen name="king_user_image_radius">45dp</dimen>
+    <dimen name="king_star_icon_size">36dp</dimen>
+</resources>

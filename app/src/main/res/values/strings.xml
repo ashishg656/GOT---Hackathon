@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GOT — Westeros at war</string>
+    <string name="defense_text">Defense</string>
+    <string name="attack_text">Attack</string>
+    <string name="string_header_results">Results</string>
+    <string name="string_header_result">Result</string>
+</resources>

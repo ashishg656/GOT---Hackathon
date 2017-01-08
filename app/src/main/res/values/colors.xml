@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4a4a4a</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- grey shades -->
+    <color name="z_grey_shade_1">#f5f5f5</color>
+    <color name="z_grey_shade_2">#eeeeee</color>
+    <color name="z_grey_shade_3">#e0e0e0</color>
+    <color name="z_grey_shade_4">#bdbdbd</color>
+    <color name="z_grey_shade_5">#9e9e9e</color>
+    <color name="z_grey_shade_6">#757575</color>
+    <color name="z_grey_shade_7">#616161</color>
+    <color name="z_grey_shade_8">#424242</color>
+    <color name="z_grey_shade_9">#212121</color>
+
+    <!-- text color -->
+    <color name="z_text_color_dark">@color/z_grey_shade_9</color>
+    <color name="z_text_color_medium_dark">@color/z_grey_shade_8</color>
+    <color name="z_text_color_light">@color/z_grey_shade_6</color>
+    <color name="z_black_50_alpha">#80000000</color>
+    <color name="z_black_70_alpha">#B3000000</color>
+    <color name="z_black_90_alpha">#E6000000</color>
+
+    <!--message count bg-->
+    <color name="message_count_color_1">#34495e</color>
+    <color name="message_count_color_2">#00bcd4</color>
+    <color name="message_count_color_3">#4caf50</color>
+    <color name="message_count_color_4">#f44336</color>
+
+    <!-- common colors -->
+    <color name="white">#ffffff</color>
+    <color name="z_white_transparency">#80ffffff</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="issue_type_text_color">#1b5e20</color>
+    <color name="issue_priority_text_color">#1b5e20</color>
+
+    <color name="ripple_color">#42ffffff</color>
+    <color name="green_color_primary">#1b5e20</color>
+    <color name="red_color_primary">#f44336</color>
+    <color name="teal_color">#009688</color>
+</resources>

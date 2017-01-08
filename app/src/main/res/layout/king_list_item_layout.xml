@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/z_margin_small"
+    android:background="@drawable/shadow_king_list_item">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/z_margin_large"
+        android:paddingTop="@dimen/z_margin_large">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/z_margin_medium"
+            android:paddingRight="@dimen/z_margin_large">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/king_image"
+                android:layout_width="@dimen/king_user_image_radius"
+                android:layout_height="@dimen/king_user_image_radius" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/z_margin_small"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/king_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="Name"
+                    android:textColor="@color/z_text_color_medium_dark"
+                    android:textSize="@dimen/z_font_mini"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/king_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/z_margin_supermini"
+                    android:text="Status"
+                    android:textColor="@color/z_text_color_light"
+                    android:textSize="@dimen/z_font_mini"
+                    android:textStyle="normal" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/z_margin_medium"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/z_margin_large"
+            android:paddingRight="@dimen/z_margin_large">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/g_star" />
+
+            <TextView
+                android:id="@+id/king_ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/z_margin_small"
+                android:layout_marginTop="@dimen/z_margin_supermini"
+                android:text="400"
+                android:textColor="@color/z_text_color_medium_dark"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/king_defense_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/king_defense_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/g_sword" />
+
+                <TextView
+                    android:id="@+id/king_defense_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/z_margin_mini"
+                    android:layout_marginTop="@dimen/z_margin_supermini"
+                    android:includeFontPadding="false"
+                    android:text="Defense"
+                    android:textColor="@color/z_text_color_light"
+                    android:textSize="@dimen/z_font_supermini"
+                    android:textStyle="normal" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>
