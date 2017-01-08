@@ -71,6 +71,8 @@ public class SearchActivity extends BaseActivity implements SearchView.OnCloseLi
         setContentView(R.layout.search_activity_layout);
         ButterKnife.bind(this);
 
+        setEmptyScreenVariables();
+
         searchSuggestionLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         searchSuggestionRecyclerView.setLayoutManager(searchSuggestionLayoutManager);
 
@@ -91,11 +93,17 @@ public class SearchActivity extends BaseActivity implements SearchView.OnCloseLi
         recyclerViewContainer.setVisibility(View.GONE);
         recyclerView.setAdapter(null);
         adapter = null;
+        hideEmptyScreenLayout();
     }
 
     void showSearchResults(List<KingDetailsObject> data) {
-        adapter = new HomeListAdapter(data, this, false);
-        recyclerView.setAdapter(adapter);
+        if (data != null && data.size() > 0) {
+            hideEmptyScreenLayout();
+            adapter = new HomeListAdapter(data, this, false);
+            recyclerView.setAdapter(adapter);
+        } else {
+            showEmptyScreenLayout();
+        }
         recyclerViewContainer.setVisibility(View.VISIBLE);
     }
 
@@ -152,6 +160,7 @@ public class SearchActivity extends BaseActivity implements SearchView.OnCloseLi
         searchView.setOnCloseListener(this);
         searchView.setOnSearchClickListener(this);
         searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
 
         MenuItemCompat.expandActionView(searchMenuItem);
 

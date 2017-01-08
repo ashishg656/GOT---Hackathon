@@ -8,12 +8,12 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:overScrollMode="never"
             android:requiresFadingEdge="none"
             android:scrollbars="none">
@@ -95,6 +95,8 @@
                 android:id="@+id/search_results_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+            <include layout="@layout/empty_screen_layout" />
         </FrameLayout>
     </FrameLayout>
 </LinearLayout>

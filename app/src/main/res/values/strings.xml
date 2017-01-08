@@ -6,8 +6,11 @@
     <string name="string_header_result">Result</string>
 
     <!-- search -->
-    <string name="app_label">@string/app_name</string>
-    <string name="search_hint">Search King</string>
+    <string name="search_hint">Search Kings..</string>
+
     <string name="action_search">Search</string>
     <string name="action_filter">Filter</string>
+
+    <string name="search_activity_no_data_heading">WHOOPS.. No results</string>
+    <string name="search_activity_no_data_desc">No results were found with the selected query. Please modify your search and try again.</string>
 </resources>

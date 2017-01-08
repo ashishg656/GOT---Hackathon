@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashishgoel.got.R;
@@ -26,6 +28,10 @@ public class BaseActivity extends AppCompatActivity {
     LinearLayout progressLayout, errorLayout;
     ProgressBar progressBarLoading;
     Button retryButton;
+
+    LinearLayout emptyScreenLayout;
+    ImageView emptyScreenImage;
+    TextView emptyScreenTextBold, emptyScreenTextLight;
 
     public void makeToast(String message) {
         if (!isFinishing()) {
@@ -136,6 +142,27 @@ public class BaseActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setEmptyScreenVariables() {
+        emptyScreenLayout = (LinearLayout) findViewById(R.id.emptyScreenLayout);
+        emptyScreenImage = (ImageView) findViewById(R.id.emptyScreenImage);
+        emptyScreenTextBold = (TextView) findViewById(R.id.emptyScreenTextBold);
+        emptyScreenTextLight = (TextView) findViewById(R.id.emptyScreenTextLight);
+
+        try {
+            emptyScreenImage.setImageResource(R.drawable.empty_search_image);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void showEmptyScreenLayout() {
+        emptyScreenLayout.setVisibility(View.VISIBLE);
+    }
+
+    void hideEmptyScreenLayout() {
+        emptyScreenLayout.setVisibility(View.GONE);
     }
 
     /*
