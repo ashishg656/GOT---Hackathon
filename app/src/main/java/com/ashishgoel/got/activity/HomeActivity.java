@@ -24,6 +24,8 @@ import com.ashishgoel.got.serverApi.AppRequestListener;
 import com.ashishgoel.got.urls.HomeRequestUrls;
 import com.ashishgoel.got.utils.AndroidUtils;
 import com.ashishgoel.got.utils.DebugUtils;
+import com.ashishgoel.got.utils.UIUtils;
+import com.ashishgoel.got.utils.VolleyUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,7 +43,7 @@ import butterknife.ButterKnife;
  * Created by Ashish on 07/01/17.
  */
 
-public class HomeActivity extends BaseActivity implements AppRequestListener, RankCalculatorListenerInterface, FilterFragment.FilterApplyInterface {
+public class HomeActivity extends BaseActivity implements AppRequestListener, RankCalculatorListenerInterface, FilterFragment.FilterApplyInterface, View.OnClickListener {
 
     private List<HomeResponseObject> mData;
 
@@ -58,6 +60,8 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
 
     ArrayList<String> filterBattleTypes;
 
+    private String requestUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,12 +76,14 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
 
         setProgressAndErrorLayoutVariables();
 
+        retryButton.setOnClickListener(this);
+
         loadData();
     }
 
     private void loadData() {
-        String url = HomeRequestUrls.getHomeApiUrl();
-        HomeAppRequests.makeHomeApiRequest(url, this, this);
+        requestUrl = HomeRequestUrls.getHomeApiUrl();
+        HomeAppRequests.makeHomeApiRequest(requestUrl, this, this);
     }
 
     @Override
@@ -91,8 +97,17 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
     @Override
     public void onRequestFailed(String requestTag, VolleyError error, boolean networkError) {
         if (requestTag.equalsIgnoreCase(RequestTags.HOME_REQUEST)) {
-            hideProgressLayout();
-            showErrorLayout();
+            try {
+                String response = VolleyUtils.getResponseFromCache(requestUrl);
+                Type listType = new TypeToken<ArrayList<HomeResponseObject>>() {
+                }.getType();
+                mData = new Gson().fromJson(response, listType);
+
+                new RatingCalculator(mData, this, null).execute();
+            } catch (Exception e) {
+                hideProgressLayout();
+                showErrorLayout();
+            }
         }
     }
 
@@ -139,6 +154,15 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
         this.filterBattleTypes = data;
 
         new RatingCalculator(mData, this, filterBattleTypes).execute();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_error:
+                loadData();
+                break;
+        }
     }
 
     static class RatingCalculator extends AsyncTask<String, Integer, String> {
@@ -277,7 +301,15 @@ public class HomeActivity extends BaseActivity implements AppRequestListener, Ra
                 openSearchActivity();
                 break;
             case R.id.menu_filter:
-                openFilterFragment();
+                if (allBattleTypes != null) {
+                    openFilterFragment();
+                } else {
+                    UIUtils.makeSimpleAlertDialog(
+                            "Error",
+                            "Filter data has not been loaded yet. Please check internet connection and click retry button to try again",
+                            this
+                    );
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);

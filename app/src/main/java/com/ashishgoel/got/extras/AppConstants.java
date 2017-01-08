@@ -13,8 +13,8 @@ public interface AppConstants {
     public static final String OUTCOME_DRAW = "draw";
 
     // database
-    public static final int DATABASE_VERSION = 5;
-    public static final String DATABASE_NAME = "Search.db";
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "GOT.db";
 
     public interface INTENT_DATA {
         public static final String INTENT_DATA_KING_OBJECT = "INTENT_DATA_KING_OBJECT";

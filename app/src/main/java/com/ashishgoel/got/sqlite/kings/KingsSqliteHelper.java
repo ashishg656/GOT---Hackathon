@@ -56,48 +56,56 @@ public class KingsSqliteHelper extends SQLiteOpenHelper {
     }
 
     public void setData(List<KingDetailsObject> data) {
-        if (data != null) {
-            deleteAllItems();
-            SQLiteDatabase db = this.getWritableDatabase();
-            for (KingDetailsObject obj : data) {
-                ContentValues values = new ContentValues();
-                values.put(SearchEntry.COLUMN_NAME_TITLE, obj.getName());
-                values.put(SearchEntry.COLUMN_NAME_DETAIL_OBJ, VolleyUtils.getStringFromObject(obj));
+        try {
+            if (data != null) {
+                deleteAllItems();
+                SQLiteDatabase db = this.getWritableDatabase();
+                for (KingDetailsObject obj : data) {
+                    ContentValues values = new ContentValues();
+                    values.put(SearchEntry.COLUMN_NAME_TITLE, obj.getName());
+                    values.put(SearchEntry.COLUMN_NAME_DETAIL_OBJ, VolleyUtils.getStringFromObject(obj));
 
-                long newRowId = db.insert(SearchEntry.TABLE_NAME, null, values);
+                    long newRowId = db.insert(SearchEntry.TABLE_NAME, null, values);
+                }
+                db.close();
             }
-            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public List<KingDetailsObject> searchKings(String query) {
         List<KingDetailsObject> searches = new ArrayList<>();
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
 
-        String[] projection = {
-                SearchEntry._ID,
-                SearchEntry.COLUMN_NAME_TITLE,
-                SearchEntry.COLUMN_NAME_DETAIL_OBJ
-        };
+            String[] projection = {
+                    SearchEntry._ID,
+                    SearchEntry.COLUMN_NAME_TITLE,
+                    SearchEntry.COLUMN_NAME_DETAIL_OBJ
+            };
 
-        String[] queryArray = {""};
-        queryArray[0] = query;
+            String[] queryArray = {""};
+            queryArray[0] = query;
 
-        String where = SearchEntry.COLUMN_NAME_TITLE + " LIKE '%" + query + "%'";
+            String where = SearchEntry.COLUMN_NAME_TITLE + " LIKE '%" + query + "%'";
 
-        Cursor cursor = db.query(SearchEntry.TABLE_NAME, projection, where, null, null, null, null);
+            Cursor cursor = db.query(SearchEntry.TABLE_NAME, projection, where, null, null, null, null);
 
-        if (cursor.moveToFirst()) {
-            do {
-                String jsonString = cursor.getString(cursor.getColumnIndexOrThrow(SearchEntry.COLUMN_NAME_DETAIL_OBJ));
-                KingDetailsObject object = (KingDetailsObject) VolleyUtils.getResponseObject(jsonString, KingDetailsObject.class);
-                searches.add(object);
-            } while (cursor.moveToNext());
+            if (cursor.moveToFirst()) {
+                do {
+                    String jsonString = cursor.getString(cursor.getColumnIndexOrThrow(SearchEntry.COLUMN_NAME_DETAIL_OBJ));
+                    KingDetailsObject object = (KingDetailsObject) VolleyUtils.getResponseObject(jsonString, KingDetailsObject.class);
+                    searches.add(object);
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        cursor.close();
-        db.close();
 
         return searches;
     }
@@ -105,32 +113,40 @@ public class KingsSqliteHelper extends SQLiteOpenHelper {
     public List<KingDetailsObject> getAllKings() {
         List<KingDetailsObject> searches = new ArrayList<>();
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
 
-        String[] projection = {
-                SearchEntry._ID,
-                SearchEntry.COLUMN_NAME_TITLE,
-                SearchEntry.COLUMN_NAME_DETAIL_OBJ
-        };
+            String[] projection = {
+                    SearchEntry._ID,
+                    SearchEntry.COLUMN_NAME_TITLE,
+                    SearchEntry.COLUMN_NAME_DETAIL_OBJ
+            };
 
-        Cursor cursor = db.query(SearchEntry.TABLE_NAME, projection, null, null, null, null, null);
+            Cursor cursor = db.query(SearchEntry.TABLE_NAME, projection, null, null, null, null, null);
 
-        if (cursor.moveToFirst()) {
-            do {
-                String jsonString = cursor.getString(cursor.getColumnIndexOrThrow(SearchEntry.COLUMN_NAME_DETAIL_OBJ));
-                KingDetailsObject object = (KingDetailsObject) VolleyUtils.getResponseObject(jsonString, KingDetailsObject.class);
-                searches.add(object);
-            } while (cursor.moveToNext());
+            if (cursor.moveToFirst()) {
+                do {
+                    String jsonString = cursor.getString(cursor.getColumnIndexOrThrow(SearchEntry.COLUMN_NAME_DETAIL_OBJ));
+                    KingDetailsObject object = (KingDetailsObject) VolleyUtils.getResponseObject(jsonString, KingDetailsObject.class);
+                    searches.add(object);
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        cursor.close();
-        db.close();
 
         return searches;
     }
 
     void deleteAllItems() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(SearchEntry.TABLE_NAME, null, null);
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.delete(SearchEntry.TABLE_NAME, null, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

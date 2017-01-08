@@ -31,7 +31,7 @@ public class SearchSqliteHelper extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + SearchEntry.TABLE_NAME;
 
     public static class SearchEntry implements BaseColumns {
-        public static final String TABLE_NAME = "search";
+        public static final String TABLE_NAME = "search_new";
         public static final String COLUMN_NAME_TITLE = "title";
     }
 
@@ -88,44 +88,52 @@ public class SearchSqliteHelper extends SQLiteOpenHelper {
     public List<SearchSqliteObject> getAllSearches() {
         List<SearchSqliteObject> searches = new ArrayList<>();
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            SQLiteDatabase db = this.getWritableDatabase(); // here writable db is taken because getAllSearches() is called before any other function which need getWritableDatabase. Hence table was not getting created before calling this here.
 
-        String[] projection = {
-                SearchEntry._ID,
-                SearchEntry.COLUMN_NAME_TITLE,
-        };
+            String[] projection = {
+                    SearchEntry._ID,
+                    SearchEntry.COLUMN_NAME_TITLE,
+            };
 
-        Cursor cursor = db.query(SearchEntry.TABLE_NAME, projection, null, null, null, null, null);
+            Cursor cursor = db.query(SearchEntry.TABLE_NAME, projection, null, null, null, null, null);
 
-        if (cursor.moveToFirst()) {
-            do {
-                SearchSqliteObject search = new SearchSqliteObject();
-                search.setId(cursor.getInt(cursor.getColumnIndexOrThrow(SearchEntry._ID)));
-                search.setSearchText(cursor.getString(cursor.getColumnIndexOrThrow(SearchEntry.COLUMN_NAME_TITLE)));
-                searches.add(search);
-            } while (cursor.moveToNext());
+            if (cursor.moveToFirst()) {
+                do {
+                    SearchSqliteObject search = new SearchSqliteObject();
+                    search.setId(cursor.getInt(cursor.getColumnIndexOrThrow(SearchEntry._ID)));
+                    search.setSearchText(cursor.getString(cursor.getColumnIndexOrThrow(SearchEntry.COLUMN_NAME_TITLE)));
+                    searches.add(search);
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        cursor.close();
-        db.close();
 
         return searches;
     }
 
     public int getCount() {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String[] projection = {
-                SearchEntry._ID,
-        };
-
-        Cursor cursor = db.query(SearchEntry.TABLE_NAME, projection, null, null, null, null, null);
         try {
-            int count = cursor.getCount();
+            SQLiteDatabase db = this.getReadableDatabase();
 
-            cursor.close();
-            db.close();
-            return count;
+            String[] projection = {
+                    SearchEntry._ID,
+            };
+
+            Cursor cursor = db.query(SearchEntry.TABLE_NAME, projection, null, null, null, null, null);
+            try {
+                int count = cursor.getCount();
+
+                cursor.close();
+                db.close();
+                return count;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,42 +141,54 @@ public class SearchSqliteHelper extends SQLiteOpenHelper {
     }
 
     public void deleteLastSearchItem() {
-        int count = getCount();
-        if (count >= countToKeep) {
-            String sortOrder = SearchEntry._ID + " ASC";
+        try {
+            int count = getCount();
+            if (count >= countToKeep) {
+                String sortOrder = SearchEntry._ID + " ASC";
 
-            SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = this.getReadableDatabase();
 
-            String[] projection = {
-                    SearchEntry._ID,
-            };
+                String[] projection = {
+                        SearchEntry._ID,
+                };
 
-            Cursor cursor = db.query(SearchEntry.TABLE_NAME, projection, null, null, null, null, sortOrder);
+                Cursor cursor = db.query(SearchEntry.TABLE_NAME, projection, null, null, null, null, sortOrder);
 
-            cursor.moveToFirst();
+                cursor.moveToFirst();
 
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow(SearchEntry._ID));
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(SearchEntry._ID));
 
-            deleteItem(id);
+                deleteItem(id);
 
-            cursor.close();
-            db.close();
+                cursor.close();
+                db.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void deleteAllItems() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(SearchEntry.TABLE_NAME, null, null);
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.delete(SearchEntry.TABLE_NAME, null, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void deleteItem(int id) {
-        String selection = SearchEntry._ID + " = ?";
-        String[] selectionArgs = {String.valueOf(id)};
+        try {
+            String selection = SearchEntry._ID + " = ?";
+            String[] selectionArgs = {String.valueOf(id)};
 
-        SQLiteDatabase db = this.getWritableDatabase();
+            SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(SearchEntry.TABLE_NAME, selection, selectionArgs);
+            db.delete(SearchEntry.TABLE_NAME, selection, selectionArgs);
 
-        db.close();
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
