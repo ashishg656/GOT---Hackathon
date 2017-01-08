@@ -43,6 +43,7 @@ public class KingDetailsObject implements Comparable<KingDetailsObject>, Parcela
         numberOfDraws = in.readInt();
         defaultRating = in.readFloat();
         currentRating = (Float) in.readValue(null);
+        strengthForBattleType = in.readHashMap(null);
     }
 
     @Override
@@ -55,6 +56,7 @@ public class KingDetailsObject implements Comparable<KingDetailsObject>, Parcela
         dest.writeInt(numberOfDraws);
         dest.writeFloat(defaultRating);
         dest.writeValue(currentRating);
+        dest.writeMap(strengthForBattleType);
     }
 
     public HashMap<String, Integer> getStrengthForBattleType() {
