@@ -23,7 +23,7 @@ public class SearchSqliteHelper extends SQLiteOpenHelper {
     private static final String COMMA_SEP = ",";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + SearchEntry.TABLE_NAME + " (" +
+            "CREATE TABLE " + SearchEntry.TABLE_NAME + "(" +
                     SearchEntry._ID + " INTEGER PRIMARY KEY," +
                     SearchEntry.COLUMN_NAME_TITLE + TEXT_TYPE + " )";
 
@@ -31,12 +31,12 @@ public class SearchSqliteHelper extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + SearchEntry.TABLE_NAME;
 
     public static class SearchEntry implements BaseColumns {
-        public static final String TABLE_NAME = "search_new";
+        public static final String TABLE_NAME = "search";
         public static final String COLUMN_NAME_TITLE = "title";
     }
 
     public SearchSqliteHelper(Context context) {
-        super(context, AppConstants.DATABASE_NAME, null, AppConstants.DATABASE_VERSION);
+        super(context, AppConstants.DATABASE_NAME_SEARCH, null, AppConstants.DATABASE_VERSION_SEARCH);
     }
 
     public void onCreate(SQLiteDatabase db) {

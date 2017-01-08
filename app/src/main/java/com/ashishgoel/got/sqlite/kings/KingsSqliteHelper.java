@@ -23,7 +23,7 @@ public class KingsSqliteHelper extends SQLiteOpenHelper {
     private static final String COMMA_SEP = ",";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + SearchEntry.TABLE_NAME + " (" +
+            "CREATE TABLE " + SearchEntry.TABLE_NAME + "(" +
                     SearchEntry._ID + " INTEGER PRIMARY KEY," +
                     SearchEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
                     SearchEntry.COLUMN_NAME_DETAIL_OBJ + TEXT_TYPE + " )";

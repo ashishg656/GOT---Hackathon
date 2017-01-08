@@ -14,7 +14,9 @@ public interface AppConstants {
 
     // database
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "GOT.db";
+    public static final int DATABASE_VERSION_SEARCH = 1;
+    public static final String DATABASE_NAME = "mydb.db";
+    public static final String DATABASE_NAME_SEARCH = "search.db";
 
     public interface INTENT_DATA {
         public static final String INTENT_DATA_KING_OBJECT = "INTENT_DATA_KING_OBJECT";
